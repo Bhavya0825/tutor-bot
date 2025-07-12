@@ -1,14 +1,27 @@
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
-from flask import Flask, request, jsonify
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static", static_url_path="")
 CORS(app)
 
-@app.route('/')
-def home():
-    return "TutorIQ Backend Running!"
+@app.route("/")
+def serve_index():
+    return send_from_directory(app.static_folder, "index.html")
 
-# Your other routes...
+# Keep your /ask and /quiz/generate routes below this...
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+@app.route("/ask", methods=["POST"])
+def ask():
+    # your existing code...
+    pass
+
+@app.route("/quiz/generate", methods=["POST"])
+def generate_quiz():
+    # your existing code...
+    pass
+
+# Optional: catch-all route for React Router
+@app.errorhandler(404)
+def not_found(e):
+    return send_from_directory(app.static_folder, "index.html")
