@@ -23,6 +23,7 @@ def serve_index():
 # ====================
 @app.route("/ask", methods=["POST"])
 def ask():
+    print("OPENROUTER_API_KEY =", repr(OPENROUTER_API_KEY))
     try:
         data = request.get_json()
         question = data.get("question", "")
