@@ -33,7 +33,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        {/* === FIX: Add flex flex-col to make this a flex container === */}
+        {/* === FIX: Add flex and flex-col to make this a flex container === */}
         <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
           <BrowserRouter>
             {/* Header */}

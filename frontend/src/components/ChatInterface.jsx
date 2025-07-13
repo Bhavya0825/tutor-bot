@@ -1,27 +1,31 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, ArrowLeft, Bot, User, Loader2 } from "lucide-react";
+import { Send, ArrowLeft, Bot, User, Loader2, Trash2 } from "lucide-react"; // Added Trash2
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 
+// Define the default message outside so it can be reused
+const defaultInitialMessage = [
+  {
+    role: "assistant",
+    content:
+      "Hello! I'm your AI tutor. I can help with DSA, algorithms, and more. What would you like to learn today?",
+  },
+];
+
 const ChatInterface = () => {
-  // Load messages from localStorage (or use default)
   const getInitialMessages = () => {
     const saved = localStorage.getItem("chatHistory");
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        // Ensure saved history isn't empty
+        return parsed.length > 0 ? parsed : defaultInitialMessage;
       } catch (e) {
         console.error("Error parsing chatHistory from localStorage");
       }
     }
-    return [
-      {
-        role: "assistant",
-        content:
-          "Hello! I'm your AI tutor. I can help with DSA, algorithms, and more. What would you like to learn today?",
-      },
-    ];
+    return defaultInitialMessage;
   };
 
   const [messages, setMessages] = useState(getInitialMessages);
@@ -33,10 +37,15 @@ const ChatInterface = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Save messages to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem("chatHistory", JSON.stringify(messages));
   }, [messages]);
+
+  // --- NEW FUNCTION TO CLEAR CHAT ---
+  const handleClearChat = () => {
+    localStorage.removeItem("chatHistory");
+    setMessages(defaultInitialMessage);
+  };
 
   const handleSendMessage = async () => {
     if (!inputText.trim()) return;
@@ -91,16 +100,25 @@ const ChatInterface = () => {
   return (
     <div className="max-w-4xl mx-auto h-[calc(100vh-140px)] flex flex-col">
       <div className="bg-white dark:bg-gray-800 border-b p-4">
-        <div className="flex items-center gap-4">
-          <Link to="/">
-            <Button variant="ghost" size="sm">
-              <ArrowLeft className="h-4 w-4 mr-2" />Back
-            </Button>
-          </Link>
-          <div className="flex items-center gap-2">
-            <Bot className="h-6 w-6 text-blue-600" />
-            <h2 className="text-xl font-semibold">AI Tutor Chat</h2>
+        {/* Updated header with justify-between */}
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <Link to="/">
+              <Button variant="ghost" size="sm">
+                <ArrowLeft className="h-4 w-4 mr-2" />Back
+              </Button>
+            </Link>
+            <div className="flex items-center gap-2">
+              <Bot className="h-6 w-6 text-blue-600" />
+              <h2 className="text-xl font-semibold">AI Tutor Chat</h2>
+            </div>
           </div>
+
+          {/* New Clear Chat Button */}
+          <Button variant="destructive" size="sm" onClick={handleClearChat}>
+            <Trash2 className="h-4 w-4 mr-2" />
+            Clear Chat
+          </Button>
         </div>
       </div>
 
