@@ -13,7 +13,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Render will use its own environment variables in production.
 load_dotenv()
 
-app = Flask(__name__, static_folder="static", static_url_path="")
+# Tell Flask to look "up one directory" (../) and then into "frontend/dist"
+app = Flask(__name__, static_folder="../frontend/dist", static_url_path="")
 CORS(app)
 
 # ====================
