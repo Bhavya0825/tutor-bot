@@ -36,7 +36,7 @@ const QuizMode = () => {
     setIsLoading(true);
 
     try {
-      const res = await fetch("https://tutor-bot.onrender.com/generate", {
+      const res = await fetch("https://tutor-bot.onrender.com/quiz/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
