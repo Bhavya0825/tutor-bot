@@ -9,7 +9,6 @@ import Index from "./pages/Index";
 import ChatInterface from "./components/ChatInterface";
 import QuizMode from "./components/QuizMode";
 import NotFound from "./pages/NotFound";
-
 const queryClient = new QueryClient();
 
 const App = () => {

@@ -59,7 +59,7 @@ const ChatInterface = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("https://tutoriq.onrender.com/ask", {
+      const response = await fetch("https://tutor-bot.onrender.com/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: inputText, topic: "General" }),
@@ -77,7 +77,7 @@ const ChatInterface = () => {
       };
       setMessages((prev) => [...prev, aiMessage]);
     } catch (error) {
-      console.error("Chat API error:", error);
+      console.error("Chat API error:", error  );
       setMessages((prev) => [
         ...prev,
         {
