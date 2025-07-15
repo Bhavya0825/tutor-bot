@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 load_dotenv()
 
 # Tell Flask to look "up one directory" (../) and then into "frontend/dist"
-app = Flask(__name__, static_folder="../frontend/dist", static_url_path="")
+app = Flask(__name__, static_folder="static", static_url_path="")
 CORS(app)
 
 # ====================
