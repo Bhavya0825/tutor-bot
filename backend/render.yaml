@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: flask-app
+    env: python
+    buildCommand: "echo 'No build step needed'"
+    startCommand: "gunicorn app:app"
