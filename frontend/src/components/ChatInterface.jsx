@@ -59,7 +59,7 @@ const ChatInterface = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("https://tutor-bot-u5v7.vercel.app/ask", {
+      const response = await fetch("https://tutor-bot.onrender.com/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: inputText, topic: "General" }),
